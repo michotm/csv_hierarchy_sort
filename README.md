@@ -16,7 +16,7 @@ To install csv-hierachy-sort in a fancy way, we recommend using `pipx <https://p
 
 After installing ``pipx`` simply run:
 ``` code:: bash
-$ pipx install 
+$ pipx install "git+https://github.com/michotm/csv_hierarchy_sort.git@master"" 
 ```
 ## Usage
 
