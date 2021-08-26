@@ -6,7 +6,7 @@ import setuptools
 
 setuptools.setup(
     name='CSV Hierarchy Sort',
-    version='0.1.2',
+    version='0.1.3',
     python_requires=">=3.6",
     packages=['csv_hierarchy_sort'],
     install_requires=["click"],
