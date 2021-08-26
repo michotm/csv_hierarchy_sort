@@ -22,9 +22,12 @@ def main(id_key, parent_id_key, input_file, output_file, delimiter):
         fieldnames = [k for k in next(iter(indexed_csv.values()))]
 
     for r in indexed_csv:
-        indexed_csv[r]['complete_path'] = compute_complete_path(
-            indexed_csv, r, r, parent_id_key)
-
+        if indexed_csv[r][parent_id_key] in indexed_csv:
+            indexed_csv[r]['complete_path'] = compute_complete_path(
+                indexed_csv, r, r, parent_id_key)
+        else:
+            indexed_csv[r]['complete_path'] = r
+            
     l = [indexed_csv[r]['complete_path'].split(
         '/') for r in indexed_csv if indexed_csv[r]['complete_path'] != '']
     levels = {}
@@ -35,7 +38,7 @@ def main(id_key, parent_id_key, input_file, output_file, delimiter):
     ids = []
     with open(output_file, 'w') as csvfile:
 
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=";")
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=delimiter)
         writer.writeheader()
         for level in levels:
             for id in levels[level]:
