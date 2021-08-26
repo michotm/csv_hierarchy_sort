@@ -1,3 +1,4 @@
 /CSV_Hierarchy_Sort.egg-info
 /venv
 .vscode/launch.json
+*.pyc
