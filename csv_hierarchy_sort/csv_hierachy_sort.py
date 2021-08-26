@@ -3,7 +3,7 @@ import csv
 
 
 def compute_complete_path(indexed_csv, current_id, complete_path, parent_id_key='parent_id'):
-    if indexed_csv[current_id][parent_id_key]:
+    if current_id in indexed_csv and indexed_csv[current_id][parent_id_key]:
         return compute_complete_path(indexed_csv, indexed_csv[current_id][parent_id_key], f"{indexed_csv[current_id][parent_id_key]}/{complete_path}", parent_id_key)
     else:
         return f"{complete_path}"
@@ -17,7 +17,7 @@ def compute_complete_path(indexed_csv, current_id, complete_path, parent_id_key=
 @click.option('--delimiter', default=';', help='CSV delimiter')
 def main(id_key, parent_id_key, input_file, output_file, delimiter):
     with open(input_file) as fin:
-        reader = csv.DictReader(fin, delimiter=";")
+        reader = csv.DictReader(fin, delimiter=delimiter)
         indexed_csv = {r[id_key]: r for r in reader}
         fieldnames = [k for k in next(iter(indexed_csv.values()))]
 
