@@ -30,8 +30,10 @@ def main(id_key, parent_id_key, input_file, output_file, delimiter):
     with open(input_file) as fin:
         reader = csv.DictReader(fin, delimiter=delimiter)
         indexed_csv = {r[id_key]: r for r in reader}
+        if not indexed_csv:
+            # the rest of the code should not be executed because the download file is empty
+            return
         fieldnames = [k for k in next(iter(indexed_csv.values()))]
-
     for r in indexed_csv:
         if indexed_csv[r][parent_id_key] in indexed_csv:
             indexed_csv[r]["complete_path"] = compute_complete_path(
